@@ -1,4 +1,4 @@
-FROM node
+FROM node:slim
 WORKDIR /app/
 COPY package.json package-lock.json /app/
 RUN npm install
@@ -8,5 +8,7 @@ RUN	npx tsc
 
 FROM node:slim
 WORKDIR /app/
-COPY --from=0 /app .
+COPY --from=0 /app/build/index.js ./build/
+RUN useradd -r -M sysuser
+USER sysuser
 CMD node build/index.js
