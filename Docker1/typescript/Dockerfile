@@ -7,5 +7,6 @@ COPY tsconfig.json /app/
 # COPY . /app
 RUN	npx tsc
 RUN useradd -r -M sysuser
+RUN chown sysuser -R /app
 USER sysuser
 CMD node build/index.js

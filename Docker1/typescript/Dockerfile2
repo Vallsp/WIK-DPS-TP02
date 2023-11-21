@@ -9,6 +9,8 @@ RUN	npx tsc
 FROM node:slim
 WORKDIR /app/
 COPY --from=0 /app/build/index.js ./build/
+COPY --from=0 /app/package+.json ./
+COPY --from=0 /app/node_modules ./node-modules
 RUN useradd -r -M sysuser
 USER sysuser
 CMD node build/index.js
